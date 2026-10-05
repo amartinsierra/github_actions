@@ -35,6 +35,11 @@ jobs:
       - name: Construir imagen
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/personas-python .
 
+      - name: Analizar vulnerabilidades
+        uses: docker/scout-action@v1
+        with:
+          command: cves
+          image: ${{ secrets.DOCKER_USERNAME }}/personas-python
 
       - name: Publicar imagen
         run: docker push ${{ secrets.DOCKER_USERNAME }}/personas-python
